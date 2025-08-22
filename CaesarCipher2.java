@@ -21,8 +21,9 @@ public class CaesarCipher2
     }
     public void decodeTry()
     {
+        String chk = "VKZXQK"; // Least frequent letters in English (ChatGPT) 
         char ch;
-        int ASC, cin=0, c=0;
+        int ASC, cin=0, c=0, c_unc=0, c_unc_ini=0;
         decoded_final = encoded;
         for(int j=0;j<encoded.length();j++) // Finding number of vowels in encoded String
         {
@@ -33,6 +34,7 @@ public class CaesarCipher2
                 cin++;
             }
         }
+        
         for(int shift=1;shift<26;shift++)
         {
             decoded="";
@@ -70,10 +72,34 @@ public class CaesarCipher2
                 c++;
             }
         }
+        if(c_unc_ini==0)
+        {
+            for(int i=0;i<decoded.length();i++)
+            {
+                ch=decoded.charAt(i);
+                if(chk.indexOf(ch)!=-1)
+                c_unc_ini++;
+            }
+        }
         if(c>cin)
         {
             cin=c; // Variable 'cin' stores the no. of vowels in the new highest-vowels containing String
             decoded_final = decoded;
+        }
+        else if(c==cin) // In case the decryptions have same number of vowels, discard the one containing more of the uncommon letters
+        {
+            c_unc=0;
+            for(int i=0;i<decoded.length();i++)
+            {
+                ch=decoded.charAt(i);
+                if(chk.indexOf(ch)!=-1)
+                c_unc++;
+            }
+            if(c_unc<c_unc_ini)
+            {
+                c_unc_ini=c_unc;
+                decoded_final = decoded;
+            }
         }
         }
         System.out.println("Most likely decryption of given cipher is: " +decoded_final);
