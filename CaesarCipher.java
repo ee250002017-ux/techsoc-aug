@@ -69,14 +69,14 @@ public class CaesarCipher
              if(Character.isLetter(ch)==true)
              {
                  ASC = (int)ch;
-                 if((ASC>=65)&&(ASC<=90)) // For encoding uppercase characters
+                 if((ASC>=65)&&(ASC<=90)) // For decoding uppercase characters
                  {
                     ASC-=shift; // Shifting the characters back by 'shift' amount
                     if(ASC<65) // eg. say shift=3, encoded_char=A, resultant is (char)(65-3+26) = X
                     ASC+=26;
                     decoded+=(char)ASC;
                  }
-                 if((ASC>=97)&&(ASC<=122)) // For encoding lowercase characters
+                 if((ASC>=97)&&(ASC<=122)) // For decoding lowercase characters
                  {
                     ASC-=shift; // Shifting the characters back by 'shift' amount
                     if(ASC<97) // eg. say shift=5, encoded_char=c, resultant is (char)(99-5+26) = x
